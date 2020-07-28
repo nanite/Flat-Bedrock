@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "com.sunekaer.mods.flatbedrock.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "flatbedrock.refmap.json",
+  "mixins": [
+    "FlatBedrockMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}

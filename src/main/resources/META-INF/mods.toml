@@ -1,0 +1,25 @@
+modLoader="javafml"
+loaderVersion="[31,)"
+issueTrackerURL="http://my.issue.tracker/"
+[[mods]]
+modId="flatbedrock"
+version="${file.jarVersion}"
+displayName="Flat Bedrock"
+#displayURL="http://example.com/" #optional
+#logoFile="examplemod.png" #optional
+# The description text for the mod (multi line!) (#mandatory)
+description='''
+Makes flat bedrock
+'''
+[[dependencies.flatbedrock]]
+    modId="forge"
+    mandatory=true
+    versionRange="[31,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.flatbedrock]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.15.2]"
+    ordering="NONE"
+    side="BOTH"

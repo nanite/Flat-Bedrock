@@ -90,6 +90,7 @@ mixin {
 jar {
     manifest {
         attributes([
+            "MixinConfigs": "flatbedrock.mixins.json",
             "Specification-Title": "flatbedrock",
             "Specification-Vendor": "Sunekaer",
             "Specification-Version": "1", // We are version 1 of ourselves
@@ -132,7 +133,7 @@ if (ENV.WTBW_CF_KEY) {
     curseforge {
         apiKey = ENV.WTBW_CF_KEY
         project {
-            id = "398430"
+            id = "398623"
             releaseType = "release"
             addGameVersion "1.16.1"
             changelog = getGitChangelog

@@ -30,7 +30,7 @@ archivesBaseName = 'flatbedrock'
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: 'snapshot', version: '20200514-1.15.1'
+    mappings channel: 'snapshot', version: "${mcp_mappings}"
     runs {
         client {
             workingDirectory project.file('run')
@@ -75,12 +75,10 @@ repositories {
     mavenLocal()
     maven { url "https://maven.latmod.com/" }
     maven { url "https://dvs1.progwml6.com/files/maven/"}
-    maven { url "https://dist.creeper.host/Sponge/maven" }
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.15.2-31.2.33'
-    compile 'org.spongepowered:mixin:0.8-SNAPSHOT'
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 }
 
 mixin {
@@ -135,7 +133,7 @@ if (ENV.WTBW_CF_KEY) {
         project {
             id = "398623"
             releaseType = "release"
-            addGameVersion "1.15.2"
+            addGameVersion "1.16.1"
             changelog = getGitChangelog
             changelogType = 'markdown'
             addArtifact(deobfJar)

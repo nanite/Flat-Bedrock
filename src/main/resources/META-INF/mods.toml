@@ -1,6 +1,7 @@
 modLoader="javafml"
-loaderVersion="[32,)"
-issueTrackerURL="http://my.issue.tracker/"
+loaderVersion="[33,)"
+issueTrackerURL="https://github.com/Sunekaer/Flat-Bedrock/issues"
+license="MIT License"
 [[mods]]
 modId="flatbedrock"
 version="${file.jarVersion}"
@@ -9,17 +10,17 @@ displayName="Flat Bedrock"
 #logoFile="examplemod.png" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-Makes flat bedrock
+This mod changes the vanilia bedrock generator to make flat bedrock
 '''
 [[dependencies.flatbedrock]]
     modId="forge"
     mandatory=true
-    versionRange="[32,)"
+    versionRange="[33,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.flatbedrock]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.1]"
+    versionRange="[1.16.2]"
     ordering="NONE"
     side="BOTH"

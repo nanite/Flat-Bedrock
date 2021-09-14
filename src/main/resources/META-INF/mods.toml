@@ -1,6 +1,6 @@
 modLoader="javafml"
-loaderVersion="[34,)"
-issueTrackerURL="https://github.com/Sunekaer/Flat-Bedrock/issues"
+loaderVersion="[37,)"
+issueTrackerURL="https://github.com/nanite/Flat-Bedrock/issues"
 license="MIT License"
 [[mods]]
 modId="flatbedrock"
@@ -15,12 +15,12 @@ This mod changes the vanilia bedrock generator to make flat bedrock
 [[dependencies.flatbedrock]]
     modId="forge"
     mandatory=true
-    versionRange="[34,)"
+    versionRange="[37.0.59,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.flatbedrock]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.3,1.17)"
+    versionRange="[1.17.1,)"
     ordering="NONE"
     side="BOTH"

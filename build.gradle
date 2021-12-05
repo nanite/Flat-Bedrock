@@ -6,7 +6,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
@@ -19,28 +19,30 @@ plugins {
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'maven-publish'
-apply plugin: 'eclipse'
+
 apply from: 'https://files.saps.dev/ci/git-md-changelog.gradle'
 
 def ENV = System.getenv()
+
 version = "${mod_version}-build.${ENV.GITHUB_RUN_NUMBER ?: 9999}+mc${minecraft_version}"
 group = 'com.sunekaer.mods'
 archivesBaseName = 'flatbedrock'
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(16)
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
-mixin {
-    add sourceSets.main, "flatbedrock.refmap.json"
+def mixinJson = "flatbedrock.mixins.json"
+if(!file("src/main/resources/" + mixinJson).exists()) {
+    mixinJson = null
 }
 
 minecraft {
-    mappings channel: 'official', version: "${mcp_mappings}"
+    mappings channel: 'official', version: "${minecraft_version}"
     runs {
         client {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            args '--mixin.config=flatbedrock.mixins.json'
+            if(mixinJson) args '--mixin.config', mixinJson
             mods {
                 flatbedrock {
                     source sourceSets.main
@@ -52,7 +54,7 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            args '--mixin.config=flatbedrock.mixins.json'
+            if(mixinJson) args '--mixin.config', mixinJson
             mods {
                 flatbedrock {
                     source sourceSets.main
@@ -65,7 +67,7 @@ minecraft {
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             args '--mod', 'flatbedrock', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-            args '--mixin.config=flatbedrock.mixins.json'
+            if(mixinJson) args '--mixin.config', mixinJson
             mods {
                 flatbedrock {
                     source sourceSets.main
@@ -77,24 +79,28 @@ minecraft {
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
+if(mixinJson) {
+    mixin {
+        add sourceSets.main, "flatbedrock.refmap.json"
+    }
+}
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
 }
 
 jar {
     manifest {
         attributes([
-            "MixinConfigs": "flatbedrock.mixins.json",
             "Specification-Title": "flatbedrock",
             "Specification-Vendor": "Sunekaer",
             "Specification-Version": "1", // We are version 1 of ourselves
             "Implementation-Title": project.name,
-            "Implementation-Version": "${version}",
+            "Implementation-Version": version,
             "Implementation-Vendor" :"Sunekaer",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
+        attributes.put("MixinConfig", mixinJson)
     }
 }
 

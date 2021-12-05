@@ -1,21 +1,54 @@
 package com.sunekaer.mods.flatbedrock.mixin;
 
-import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
+import net.minecraft.data.worldgen.SurfaceRuleData;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.Slice;
 
-
-@Mixin(NoiseBasedChunkGenerator.class)
+@Mixin(SurfaceRuleData.class)
 public abstract class FlatBedrockMixin {
-//    @ModifyConstant(method = "setBedrock", constant = {@Constant(intValue = 4)})
-//    private int setBedrockHeight(int value){
-//        return 0;
-//    }
-//
-//    @ModifyConstant(method = "setBedrock", constant = {@Constant(intValue = 5)})
-//    private int setBedrockHeight2(int value){
-//        return 1;
-//    }
+
+    @ModifyArg(
+            method = "overworldLike",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/level/levelgen/VerticalAnchor;aboveBottom(I)Lnet/minecraft/world/level/levelgen/VerticalAnchor;",
+                    ordinal = 0
+            ),
+            index = 0,
+            slice = @Slice(from = @At(value="CONSTANT", args = "stringValue=bedrock_floor"))
+    )
+    private static int aboveBottom(int i) {
+        return 1;
+    }
+
+    @ModifyArg(
+            method = "nether",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/level/levelgen/VerticalAnchor;aboveBottom(I)Lnet/minecraft/world/level/levelgen/VerticalAnchor;",
+                    ordinal = 0
+            ),
+            index = 0,
+            slice = @Slice(from = @At(value="CONSTANT", args = "stringValue=bedrock_floor"))
+    )
+    private static int aboveBottomFloorNether(int i) {
+        return 1;
+    }
+
+    @ModifyArg(
+            method = "nether",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/level/levelgen/VerticalAnchor;belowTop(I)Lnet/minecraft/world/level/levelgen/VerticalAnchor;",
+                    ordinal = 0
+            ),
+            index = 0,
+            slice = @Slice(from = @At(value="CONSTANT", args = "stringValue=bedrock_roof"))
+    )
+    private static int belowTopRoofNether(int i) {
+        return 1;
+    }
 }
 

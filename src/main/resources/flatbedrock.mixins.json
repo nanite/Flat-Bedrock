@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "flatbedrock.refmap.json",
   "mixins": [
+    "FlatBedrockBOPMixin",
     "FlatBedrockMixin"
   ],
   "injectors": {

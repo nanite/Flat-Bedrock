@@ -5,7 +5,8 @@
   "refmap": "flatbedrock.refmap.json",
   "mixins": [
     "FlatBedrockBOPMixin",
-    "FlatBedrockMixin"
+    "FlatBedrockMixin",
+    "FlatBedrockTerraBlenderMixin"
   ],
   "injectors": {
     "defaultRequire": 1

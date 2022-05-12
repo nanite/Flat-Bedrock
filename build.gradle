@@ -80,9 +80,22 @@ mixin {
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
+repositories {
+    maven {
+        url = "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+}
+
+
 dependencies {
     annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+//    implementation fg.deobf("curse.maven:terrablender-563928:3725996")
+//    implementation fg.deobf("curse.maven:biomes-o-plenty-220318:3765837")
+//    implementation fg.deobf("curse.maven:tool-kit-324888:3671112")
 }
 
 jar {

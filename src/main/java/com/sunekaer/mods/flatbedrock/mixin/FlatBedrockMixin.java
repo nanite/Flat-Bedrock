@@ -11,10 +11,10 @@ public abstract class FlatBedrockMixin {
 
     @ModifyArg(
             method = "overworldLike",
+            remap = false,
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/levelgen/VerticalAnchor;aboveBottom(I)Lnet/minecraft/world/level/levelgen/VerticalAnchor;",
-                    ordinal = 0
+                    target = "Lnet/minecraft/world/level/levelgen/VerticalAnchor;aboveBottom(I)Lnet/minecraft/world/level/levelgen/VerticalAnchor;"
             ),
             index = 0,
             slice = @Slice(from = @At(value="CONSTANT", args = "stringValue=bedrock_floor"))
@@ -25,6 +25,7 @@ public abstract class FlatBedrockMixin {
 
     @ModifyArg(
             method = "nether",
+            remap = false,
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/world/level/levelgen/VerticalAnchor;aboveBottom(I)Lnet/minecraft/world/level/levelgen/VerticalAnchor;",
@@ -39,6 +40,7 @@ public abstract class FlatBedrockMixin {
 
     @ModifyArg(
             method = "nether",
+            remap = false,
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/world/level/levelgen/VerticalAnchor;belowTop(I)Lnet/minecraft/world/level/levelgen/VerticalAnchor;",

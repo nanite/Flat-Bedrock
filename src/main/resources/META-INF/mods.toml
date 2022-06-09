@@ -10,8 +10,7 @@ displayURL="https://www.curseforge.com/minecraft/mc-mods/flat-bedrock" #optional
 #logoFile="examplemod.png" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-This mod changes the vanilia bedrock generator to make flat bedrock in the overworld and nether
-'''
+This mod changes the vanilia bedrock generator to make flat bedrock in the overworld and nether'''
 [[dependencies.flatbedrock]]
     modId="forge"
     mandatory=true

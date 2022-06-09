@@ -13,8 +13,7 @@ public abstract class FlatBedrockMixin {
             method = "overworldLike",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/levelgen/VerticalAnchor;aboveBottom(I)Lnet/minecraft/world/level/levelgen/VerticalAnchor;",
-                    ordinal = 0
+                    target = "Lnet/minecraft/world/level/levelgen/VerticalAnchor;aboveBottom(I)Lnet/minecraft/world/level/levelgen/VerticalAnchor;"
             ),
             index = 0,
             slice = @Slice(from = @At(value="CONSTANT", args = "stringValue=bedrock_floor"))

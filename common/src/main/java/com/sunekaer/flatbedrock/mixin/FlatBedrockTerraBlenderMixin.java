@@ -1,4 +1,4 @@
-package com.sunekaer.mods.flatbedrock.mixin;
+package com.sunekaer.flatbedrock.mixin;
 
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -7,10 +7,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Slice;
 
-@Mixin(targets = "biomesoplenty.common.worldgen.BOPSurfaceRuleData", remap = false)
+@Mixin(targets = "terrablender.worldgen.TBSurfaceRuleData", remap = false)
 @Pseudo
 
-public abstract class FlatBedrockBOPMixin {
+public abstract class FlatBedrockTerraBlenderMixin {
 
     @ModifyArg(
             method = "overworldLike",

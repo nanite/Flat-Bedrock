@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "flatbedrock",
+  "version": "${version}",
+  "name": "Flat Bedrock",
+  "description": "This mod changes the vanilia bedrock generator to make flat bedrock in the overworld and nether",
+  "authors": [
+    "Sunekaer"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/flat-bedrock",
+    "sources": "https://github.com/nanite/Flat-Bedrock"
+  },
+  "license": "MIT",
+  "icon": "assets/flatbedrock/logo.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.sunekaer.flatbedrock.fabric.FlatBedrockFabric"
+    ]
+  },
+  "mixins": [
+    "flatbedrock-common.mixins.json"
+  ],
+  "depends": {
+    "fabric": "*",
+    "minecraft": ">=1.19.2"
+  }
+}

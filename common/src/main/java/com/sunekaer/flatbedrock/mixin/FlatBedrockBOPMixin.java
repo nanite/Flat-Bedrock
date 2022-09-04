@@ -1,19 +1,25 @@
-package com.sunekaer.mods.flatbedrock.mixin;
+package com.sunekaer.flatbedrock.mixin;
 
-import net.minecraft.data.worldgen.SurfaceRuleData;
+
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Slice;
 
-@Mixin(SurfaceRuleData.class)
-public abstract class FlatBedrockMixin {
+@Mixin(targets = "biomesoplenty.common.worldgen.BOPSurfaceRuleData", remap = false)
+@Pseudo
+
+public abstract class FlatBedrockBOPMixin {
 
     @ModifyArg(
             method = "overworldLike",
+            remap = false,
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/levelgen/VerticalAnchor;aboveBottom(I)Lnet/minecraft/world/level/levelgen/VerticalAnchor;"
+                    target = "Lnet/minecraft/world/level/levelgen/VerticalAnchor;m_158930_(I)Lnet/minecraft/world/level/levelgen/VerticalAnchor;",
+                    remap = false,
+                    ordinal = 0
             ),
             index = 0,
             slice = @Slice(from = @At(value="CONSTANT", args = "stringValue=bedrock_floor"))
@@ -24,9 +30,11 @@ public abstract class FlatBedrockMixin {
 
     @ModifyArg(
             method = "nether",
+            remap = false,
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/levelgen/VerticalAnchor;aboveBottom(I)Lnet/minecraft/world/level/levelgen/VerticalAnchor;",
+                    target = "Lnet/minecraft/world/level/levelgen/VerticalAnchor;m_158930_(I)Lnet/minecraft/world/level/levelgen/VerticalAnchor;",
+                    remap = false,
                     ordinal = 0
             ),
             index = 0,
@@ -38,9 +46,11 @@ public abstract class FlatBedrockMixin {
 
     @ModifyArg(
             method = "nether",
+            remap = false,
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/levelgen/VerticalAnchor;belowTop(I)Lnet/minecraft/world/level/levelgen/VerticalAnchor;",
+                    target = "Lnet/minecraft/world/level/levelgen/VerticalAnchor;m_158935_(I)Lnet/minecraft/world/level/levelgen/VerticalAnchor;",
+                    remap = false,
                     ordinal = 0
             ),
             index = 0,

@@ -1,167 +1,46 @@
-buildscript {
-    repositories {
-        maven { url = 'https://maven.minecraftforge.net' }
-        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
-
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
-    }
-}
-
 plugins {
-    id "com.matthewprenger.cursegradle" version "1.4.0"
+    id "architectury-plugin" version "3.4-SNAPSHOT"
+    id "dev.architectury.loom" version "0.12.0-SNAPSHOT" apply false
 }
 
+architectury {
+    minecraft = rootProject.minecraft_version
+}
 
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'org.spongepowered.mixin'
-apply plugin: 'maven-publish'
+subprojects {
+    apply plugin: "dev.architectury.loom"
+    apply from: "https://files.latmod.com/public/markdown-git-changelog.gradle"
 
-apply from: 'https://files.saps.dev/ci/git-md-changelog.gradle'
+    loom {
+        silentMojangMappingsLicense()
+    }
 
-def ENV = System.getenv()
-
-version = "${mod_version}-build.${ENV.GITHUB_RUN_NUMBER ?: 9999}+mc${minecraft_version}"
-group = 'com.sunekaer.mods'
-archivesBaseName = 'flatbedrock'
-
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-
-
-
-minecraft {
-    mappings channel: 'official', version: "${minecraft_version}"
-    runs {
-        client {
-            workingDirectory project.file('run')
-            arg "-mixin.config=flatbedrock.mixins.json"
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-            mods {
-                flatbedrock {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        server {
-            workingDirectory project.file('run')
-            arg "-mixin.config=flatbedrock.mixins.json"
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-            mods {
-                flatbedrock {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        data {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-            args '--mod', 'flatbedrock', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-
-            mods {
-                flatbedrock {
-                    source sourceSets.main
-                }
-            }
-        }
+    dependencies {
+        minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
+        mappings loom.officialMojangMappings()
     }
 }
 
-mixin {
-    add sourceSets.main, "flatbedrock.refmap.json"
-}
+allprojects {
+    apply plugin: "java"
+    apply plugin: "architectury-plugin"
+    apply plugin: "maven-publish"
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
+    def ENV = System.getenv()
 
-repositories {
-    maven {
-        url = "https://cursemaven.com"
-        content {
-            includeGroup "curse.maven"
-        }
-    }
-}
-
-
-dependencies {
-    annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-//    implementation fg.deobf("curse.maven:terrablender-563928:3725996")
-//    implementation fg.deobf("curse.maven:biomes-o-plenty-220318:3765837")
-//    implementation fg.deobf("curse.maven:tool-kit-324888:3671112")
-}
-
-jar {
-    manifest {
-        attributes([
-            "Specification-Title": "flatbedrock",
-            "Specification-Vendor": "Sunekaer",
-            "Specification-Version": "1", // We are version 1 of ourselves
-            "Implementation-Title": project.name,
-            "Implementation-Version": version,
-            "Implementation-Vendor" :"Sunekaer",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-            "MixinConfigs" : "flatbedrock.mixins.json"
-        ])
-    }
-}
-
-jar.finalizedBy('reobfJar')
-
-task sourcesJar(type: Jar) {
-    classifier = "sources"
-    from sourceSets.main.allJava
-}
-
-artifacts {
-    archives sourcesJar
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifactId = archivesBaseName
-            artifact(jar) {
-                classifier null
-            }
-            artifact(sourcesJar) {
-                builtBy sourcesJar
-            }
-        }
-    }
-
+    archivesBaseName = rootProject.archives_base_name
+    version = "${mod_version}-build.${ENV.GITHUB_RUN_NUMBER ?: 9999}+mc${minecraft_version}"
+    group = rootProject.maven_group
 
     repositories {
-        if (ENV.NANITE_DEPLOY) {
-            maven {
-                url "https://maven.nanite.dev/"
-                credentials {
-                    username = "nanite"
-                    password = "${ENV.NANITE_DEPLOY}"
-                }
-            }
-        }
     }
-}
 
-if (ENV.CURSE_DEPLOY) {
-    curseforge {
-        apiKey = ENV.CURSE_DEPLOY
-        project {
-            id = project.curseforge_id
-            releaseType = "release"
-            addGameVersion "Forge"
-            addGameVersion "${minecraft_version}"
-            mainArtifact(jar)
-            changelog = getGitChangelog
-            changelogType = 'markdown'
-        }
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+        options.release = 17
+    }
+
+    java {
+        withSourcesJar()
     }
 }

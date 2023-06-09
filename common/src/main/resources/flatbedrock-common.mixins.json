@@ -6,9 +6,7 @@
   "client": [
   ],
   "mixins": [
-    "FlatBedrockBOPMixin",
-    "FlatBedrockMixin",
-    "FlatBedrockTerraBlenderMixin"
+    "FlatBedrockMixin"
   ],
   "injectors": {
     "defaultRequire": 1

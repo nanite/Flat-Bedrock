@@ -20,14 +20,26 @@ subprojects {
         minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
         mappings loom.officialMojangMappings()
     }
+
+    publishing {
+        repositories {
+            if (providers.environmentVariable("NANITE_TOKEN").isPresent()) {
+                maven {
+                    url "https://maven.nanite.dev/releases"
+                    credentials {
+                        username = "nanite"
+                        password = providers.environmentVariable("NANITE_TOKEN").get()
+                    }
+                }
+            }
+        }
+    }
 }
 
 allprojects {
     apply plugin: "java"
     apply plugin: "architectury-plugin"
     apply plugin: "maven-publish"
-
-    def ENV = System.getenv()
 
     archivesBaseName = rootProject.archives_base_name
     version = rootProject.mod_version

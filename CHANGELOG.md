@@ -1,3 +1,3 @@
 # Changelog
 
-NeoForge & 1.20.4
+Fix mixin

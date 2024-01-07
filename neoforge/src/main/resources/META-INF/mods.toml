@@ -1,7 +1,8 @@
 modLoader="javafml"
-loaderVersion="[49,)"
+loaderVersion="[1,)"
 issueTrackerURL="https://github.com/nanite/Flat-Bedrock/issues"
 license="MIT License"
+
 [[mods]]
 modId="flatbedrock"
 version="${version}"
@@ -9,15 +10,20 @@ displayName="Flat Bedrock"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/flat-bedrock" #optional
 description='''
 This mod changes the vanilia bedrock generator to make flat bedrock in the overworld and nether'''
+
 [[dependencies.flatbedrock]]
-modId="forge"
-mandatory=true
-versionRange="[49,)"
+modId="neoforge"
+required=true
+versionRange="[20.4,)"
 ordering="NONE"
 side="BOTH"
+
 [[dependencies.flatbedrock]]
 modId="minecraft"
-mandatory=true
+required=true
 versionRange="[1.20.4,)"
 ordering="NONE"
 side="BOTH"
+
+[[mixins]]
+config = "flatbedrock-common.mixins.json"

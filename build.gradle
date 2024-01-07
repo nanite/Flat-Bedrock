@@ -1,7 +1,7 @@
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
-    id "dev.architectury.loom" version "1.2-SNAPSHOT" apply false
-    id "me.modmuss50.mod-publish-plugin" version "0.3.0"
+    id "dev.architectury.loom" version "1.4-SNAPSHOT" apply false
+    id "me.modmuss50.mod-publish-plugin" version "0.4.5"
 }
 
 architectury {
@@ -10,7 +10,7 @@ architectury {
 
 subprojects {
     apply plugin: "dev.architectury.loom"
-    apply from: "https://files.latmod.com/public/markdown-git-changelog.gradle"
+    apply plugin: "maven-publish"
 
     loom {
         silentMojangMappingsLicense()
@@ -30,7 +30,7 @@ allprojects {
     def ENV = System.getenv()
 
     archivesBaseName = rootProject.archives_base_name
-    version = "${mod_version}-build.${ENV.GITHUB_RUN_NUMBER ?: 9999}+mc${minecraft_version}"
+    version = rootProject.mod_version
     group = rootProject.maven_group
 
     repositories {
@@ -54,14 +54,20 @@ publishMods {
 
     def fabricOptions = publishOptions {
         file = project.provider { project(":fabric").tasks.remapJar }.flatMap { it.archiveFile }
-        displayName = "${project.name} Fabric ${mod_version}+mc${minecraft_version}"
+        displayName = "[FABRIC][${minecraft_version}] ${project.name} ${mod_version}"
         modLoaders.add("fabric")
     }
 
     def forgeOptions = publishOptions {
         file = project.provider { project(":forge").tasks.remapJar }.flatMap { it.archiveFile }
-        displayName = "${project.name} Forge ${mod_version}+mc${minecraft_version}"
+        displayName = "[FORGE][${minecraft_version}] ${project.name} ${mod_version}"
         modLoaders.add("forge")
+    }
+
+    def neoForge = publishOptions {
+        file = project.provider { project(":neoforge").tasks.remapJar }.flatMap { it.archiveFile }
+        displayName = "[NEOFORGE][${minecraft_version}] ${project.name} ${mod_version}"
+        modLoaders.add("neoforge")
     }
 
     def curseForgeOptions = curseforgeOptions {
@@ -87,6 +93,10 @@ publishMods {
         from(curseForgeOptions, forgeOptions)
     }
 
+    curseforge("curseforgeNeoForge") {
+        from(curseForgeOptions, neoForge)
+    }
+
     if (providers.environmentVariable("MODRINTH_TOKEN").getOrNull() != null) {
         modrinth("modrinthFabric") {
             from(modrinthOptions, fabricOptions)
@@ -97,6 +107,10 @@ publishMods {
 
         modrinth("modrinthForge") {
             from(modrinthOptions, forgeOptions)
+        }
+
+        modrinth("modrinthNeoforge") {
+            from(modrinthOptions, neoForge)
         }
     }
 }

@@ -1,4 +1,57 @@
 {
-  "curseID" : 398623,
-  "maven" : "https://maven.nanite.dev/releases/com/sunekaer/mods/flatbedrock"
+  "spec": 2,
+  "maven": [
+    {
+      "name": "Common",
+      "url": "https://maven.nanite.dev/releases/com/sunekaer/mods/flatbedrock-common"
+    },
+    {
+      "name": "Forge",
+      "url": "https://maven.nanite.dev/releases/com/sunekaer/mods/flatbedrock-forge"
+    },
+    {
+      "name": "Fabric",
+      "url": "https://maven.nanite.dev/releases/com/sunekaer/mods/flatbedrock-fabric"
+    },
+    {
+      "name": "NeoForge",
+      "url": "https://maven.nanite.dev/releases/com/sunekaer/mods/flatbedrock-neoforge"
+    }
+  ],
+  "providers": [
+    {
+      "type": "identity",
+      "name": "Modrinth",
+      "id": "ZYLnkiVu",
+      "slug": "flat-bedrock",
+      "variants": ["forge", "fabric", "neoforge"]
+    },
+    {
+      "type": "identity",
+      "name": "CurseForge",
+      "id": "398623",
+      "slug": "flat-bedrock",
+      "variants": ["forge", "fabric", "neoforge"]
+    },
+    {
+      "type": "url",
+      "name": "GitHub",
+      "url": "https://github.com/nanite/Flat-Bedrock",
+      "variants": ["forge", "fabric", "neoforge", "common"]
+    }
+  ],
+  "authors": [
+    {
+      "name": "Sunekaer",
+      "role": "Owner"
+    },
+    {
+      "name": "ErrorMikey",
+      "role": "Contributor"
+    },
+    {
+      "name": "LatvianModder",
+      "role": "Contributor"
+    }
+  ] 
 }

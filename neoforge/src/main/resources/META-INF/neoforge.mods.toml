@@ -14,14 +14,14 @@ This mod changes the vanilia bedrock generator to make flat bedrock in the overw
 [[dependencies.flatbedrock]]
 modId="neoforge"
 required=true
-versionRange="[20.5,)"
+versionRange="[20.6,)"
 ordering="NONE"
 side="BOTH"
 
 [[dependencies.flatbedrock]]
 modId="minecraft"
 required=true
-versionRange="[1.20.5,)"
+versionRange="[1.20.6,)"
 ordering="NONE"
 side="BOTH"
 

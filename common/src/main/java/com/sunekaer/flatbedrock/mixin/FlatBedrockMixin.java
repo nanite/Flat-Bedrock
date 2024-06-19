@@ -13,8 +13,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class FlatBedrockMixin {
 
     @Shadow @Final private ResourceLocation randomName;
-    private static final ResourceLocation bedrockFloor = new ResourceLocation("bedrock_floor");
-    private static final ResourceLocation bedrockRoof = new ResourceLocation("bedrock_roof");
+    private static final ResourceLocation bedrockFloor = ResourceLocation.withDefaultNamespace("bedrock_floor");
+    private static final ResourceLocation bedrockRoof = ResourceLocation.withDefaultNamespace("bedrock_roof");
     private static final VerticalAnchor aboveBottom = VerticalAnchor.aboveBottom(1);
     private static final VerticalAnchor belowTop = VerticalAnchor.belowTop(1);
 

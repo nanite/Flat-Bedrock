@@ -8,12 +8,14 @@ loom {
 
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+
+    modCompileOnly "curse.maven:biomes-o-plenty-220318:7352931"
 }
 
 publishing {
     publications {
         mavenCommon(MavenPublication) {
-            artifactId = "${rootProject.archivesBaseName}-${project.name}"
+            artifactId = rootProject.archives_base_name + "-" + project.name
             from components.java
         }
     }

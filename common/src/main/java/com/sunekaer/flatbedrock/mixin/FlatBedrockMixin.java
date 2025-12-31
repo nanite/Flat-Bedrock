@@ -1,6 +1,6 @@
 package com.sunekaer.flatbedrock.mixin;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,9 +12,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(targets = "net/minecraft/world/level/levelgen/SurfaceRules$VerticalGradientConditionSource")
 public class FlatBedrockMixin {
 
-    @Shadow @Final private ResourceLocation randomName;
-    private static final ResourceLocation bedrockFloor = ResourceLocation.withDefaultNamespace("bedrock_floor");
-    private static final ResourceLocation bedrockRoof = ResourceLocation.withDefaultNamespace("bedrock_roof");
+    @Shadow @Final private Identifier randomName;
+    private static final Identifier bedrockFloor = Identifier.withDefaultNamespace("bedrock_floor");
+    private static final Identifier bedrockRoof = Identifier.withDefaultNamespace("bedrock_roof");
     private static final VerticalAnchor aboveBottom = VerticalAnchor.aboveBottom(1);
     private static final VerticalAnchor belowTop = VerticalAnchor.belowTop(1);
 

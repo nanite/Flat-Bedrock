@@ -79,12 +79,6 @@ publishMods {
         modLoaders.add("fabric")
     }
 
-    def forgeOptions = publishOptions {
-        file = project.provider { project(":forge").tasks.remapJar }.flatMap { it.archiveFile }
-        displayName = "[FORGE][${minecraft_version}] ${project.name} ${mod_version}"
-        modLoaders.add("forge")
-    }
-
     def neoForge = publishOptions {
         file = project.provider { project(":neoforge").tasks.remapJar }.flatMap { it.archiveFile }
         displayName = "[NEOFORGE][${minecraft_version}] ${project.name} ${mod_version}"
@@ -110,10 +104,6 @@ publishMods {
         }
     }
 
-    curseforge("curseforgeForge") {
-        from(curseForgeOptions, forgeOptions)
-    }
-
     curseforge("curseforgeNeoForge") {
         from(curseForgeOptions, neoForge)
     }
@@ -125,11 +115,7 @@ publishMods {
                 slug = "fabric-api"
             }
         }
-
-        modrinth("modrinthForge") {
-            from(modrinthOptions, forgeOptions)
-        }
-
+        
         modrinth("modrinthNeoforge") {
             from(modrinthOptions, neoForge)
         }

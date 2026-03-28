@@ -93,7 +93,7 @@ publishMods {
     type = STABLE
 
     def fabricOptions = publishOptions {
-        file = project.provider { project(":fabric").tasks.remapJar }.flatMap { it.archiveFile }
+        file = project.provider { project(":fabric").tasks.jar }.flatMap { it.archiveFile }
         displayName = "[FABRIC][${minecraft_version}] ${project.name} ${mod_version}"
         modLoaders.add("fabric")
     }

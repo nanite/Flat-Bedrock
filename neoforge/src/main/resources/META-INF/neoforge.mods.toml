@@ -7,21 +7,21 @@ license="MIT License"
 modId="flatbedrock"
 version="${version}"
 displayName="Flat Bedrock"
-displayURL="https://www.curseforge.com/minecraft/mc-mods/flat-bedrock" #optional
+displayURL="https://www.curseforge.com/minecraft/mc-mods/flat-bedrock"
 description='''
 This mod changes the vanilia bedrock generator to make flat bedrock in the overworld and nether'''
 
 [[dependencies.flatbedrock]]
 modId="neoforge"
 required=true
-versionRange="[21,)"
+versionRange="${neoforge_version_range}"
 ordering="NONE"
 side="BOTH"
 
 [[dependencies.flatbedrock]]
 modId="minecraft"
 required=true
-versionRange="[1.21,)"
+versionRange="${minecraft_version_range}"
 ordering="NONE"
 side="BOTH"
 

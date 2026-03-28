@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "flatbedrock",
+  "id": "${mod_id}",
   "version": "${version}",
   "name": "Flat Bedrock",
   "description": "This mod changes the vanilia bedrock generator to make flat bedrock in the overworld and nether",
@@ -23,7 +23,7 @@
     "flatbedrock-common.mixins.json"
   ],
   "depends": {
-    "fabric": "*",
-    "minecraft": ">=1.21"
+    "fabric-api": ">=${fabric_api_version}",
+    "minecraft": ">=${minecraft_version}"
   }
 }
